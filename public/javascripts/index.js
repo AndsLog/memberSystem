@@ -2,7 +2,7 @@
 // }
 
 $(document).ready(function() {
-    $(documnet).on(click, '#submit', getValue);
+    $(document).on(click, '#submit', getValue);
 });
 
 function getValue(){
