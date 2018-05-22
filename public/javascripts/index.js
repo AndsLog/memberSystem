@@ -1,5 +1,5 @@
 return function () {
-    $(documnet).on(click, getValue);
+    $(documnet).on(click, '#submit', getValue);
 
     function getValue(){
         let eMail = $('#e-mail').val();
