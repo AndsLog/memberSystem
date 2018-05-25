@@ -82,13 +82,13 @@ window.restfulAPI = (function() {
         return AuthAPI;
     }());
 
-    var MemberAPI = (function() {
-        function MemberAPI() {
+    var MemberAPI = (function () {
+        function MemberAPI () {
             this.apiEndPoint = apiEndPoint;
         }
 
-        MemberAPI.prototype.find = function(userId, insertMember) {
-            let destUrl = this.apiEndPoint + 'member/' + (userId ? userId : '');
+        MemberAPI.prototype.find = function (userId) {
+            let destUrl = this.apiEndPoint + 'member/' + userId;
             let reqInit = {
                 method: 'GET',
                 headers: reqHeaders
@@ -96,7 +96,7 @@ window.restfulAPI = (function() {
             return sendRequest(destUrl, reqInit);
         }
 
-        MemberAPI.prototype.insert = function(userId, insertMember) {
+        MemberAPI.prototype.insert = function (userId, insertMember) {
             let destUrl = this.apiEndPoint + 'member/' + userId;
             let reqInit = {
                 method: 'POST',

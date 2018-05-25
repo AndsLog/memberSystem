@@ -1,4 +1,4 @@
-(function() {
+(function () {
     var api = window.restfulAPI;
 
     var userId;
@@ -11,13 +11,13 @@
 
     $(document).on('click', '#submit', signUp);
 
-    
-    function auth(){
+
+    function auth () {
         let email = $('#e-mail').val();
         let password = $('#password').val();
     }
 
-    function signUp() {
+    function signUp () {
         let email = $('#e-mail').val();
         let password = $('#password').val();
         let user = {
@@ -27,9 +27,9 @@
         return api.auth.signUp(user).then((resJson) => {
             let jwt = resJson.jwt;
             window.localStorage.setItem('jwt', jwt);
-            window.location.replace("/member");
+            window.location.replace('/member');
         }).catch((error) => {
             console.log(error);
-        })
+        });
     }
 }());

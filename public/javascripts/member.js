@@ -19,20 +19,25 @@
         let users = resJson.data;
         for(let userId in users) {
             let user = users[userId];
-            let appendStr =
-            '<tr data-userId="' + user.user_id + '" data-email="' + user.e_mail + '">'+
-                '<td >' + user.name + '</td>'+
-                '<td >' + user.birthday + '</td>'+
-            '</tr>'+ 
-            '<button type="submit" id="update" class="btn">update</button>'+
-            '<button type="submit" id="delete" class="btn btn-danger">delete</button>';
-            $('#userInfo').append(appendStr);
+            let name = user.name ? user.name : '未填寫';
+            let birthday = user.birthday ? user.birthday : '未填寫';
+            let elementStr =
+                '<tr data-userId="' + user.user_id + '">' +
+                    '<td id="email">' + user.e_mail + '</td>' +
+                    '<td id="name">' + name + '</td>' +
+                    '<td id="birthday">' + birthday + '</td>' +
+                    '<td>' +
+                        '<button type="submit" id="update" class="btn">update</button>' +
+                        '<button type="submit" id="delete" class="btn btn-danger">delete</button>' +
+                    '</td>' +
+                '</tr>';
+            $('#userInfo').append(elementStr);
         }
     }).catch((error) => {
         console.log(error);
-    })
+    });
 
-    function insertMember() {
+    function insertMember () {
         let name = $('#name').val();
         let birthday = $('#birthday').val();
 
@@ -42,28 +47,32 @@
         }
 
         return api.member.insert(userId, memberData).then((resJson) => {
-            $('#name').val(resJson.name);
-            $('#birthday').val(resJson.birthday);
+            let user = resJson.data;
+            $('#name').val(user[userId].name);
+            $('#birthday').val(user[userId].birthday);
             $('#insert-form').addClass('d-none');
-            let appendStr = 
-                '<tr>'+
-                    '<td >' + resJson.name + '</td>'+
-                    '<td >' + resJson.birthday + '</td>'+
-                '</tr>'+ 
-                '<button type="submit" id="update" class="btn">update</button>'+
-                '<button type="submit" id="delete" class="btn btn-danger">delete</button>';;
+            let appendStr =
+                '<tr data-userId="' + user[userId].user_id + '" data-email="' + user[userId].e_mail + '">' +
+                    '<td>' + user[userId].name ? user[userId].name : '未填寫' + '</td>' +
+                    '<td>' + user[userId].birthday ? user[userId].birthday : '未填寫' + '</td>' +
+                    '<td>' +
+                        '<button type="submit" id="update" class="btn">update</button>' +
+                        '<button type="submit" id="delete" class="btn btn-danger">delete</button>' +
+                    '</td>' +
+                '</tr>';
             $('#userInfo').append(appendStr);
         }).catch((error) => {
             console.log(error);
         })
     }
 
-    function updateMember() {
+    function updateMember () {
         $('#insert-form').removeClass('d-none');
+        $('#user-table').addClass('d-none');
         $('#userInfo').empty();
     }
 
-    function deleteMember() {
-        
+    function deleteMember () {
+
     }
 }());

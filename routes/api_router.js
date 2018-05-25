@@ -9,10 +9,9 @@ router.post('/auth/signup', authCtl.signUp);
 
 router.use(authCtl.verify);
 
-router.get('/auth/member/',memberCtl.get);
-router.get('/auth/member/:userid',memberCtl.get);
+router.get('/auth/member/', memberCtl.get);
+router.get('/auth/member/:userid', memberCtl.get);
 router.post('/auth/member/:userid', memberCtl.postOne);
 router.delete('/auth/member/:userid', memberCtl.deleteOne);
-
 
 module.exports = router;
