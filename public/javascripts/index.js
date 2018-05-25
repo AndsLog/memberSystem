@@ -1,28 +1,35 @@
 (function() {
-    $(document).ready(function() {
-        $(document).on('click', '#submit', signUp);
-    });
+    var api = window.restfulAPI;
+
+    var userId;
+    try {
+        var payload = window.jwt_decode(window.localStorage.getItem('jwt'));
+        userId = payload.uid;
+    } catch (ex) {
+        userId = '';
+    }
+
+    $(document).on('click', '#submit', signUp);
+
     
     function auth(){
         let email = $('#e-mail').val();
         let password = $('#password').val();
-        firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-            window.location.replace("../member");
-        }).catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert("無此使用者")
-            console.log("errorMessage:" + errorMessage + " code:"+errorCode);
-        });
     }
 
     function signUp() {
         let email = $('#e-mail').val();
         let password = $('#password').val();
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-            window.location.replace("../member");
+        let user = {
+            email: email,
+            password: password
+        };
+        return api.auth.signUp(user).then((resJson) => {
+            let jwt = resJson.jwt;
+            window.localStorage.setItem('jwt', jwt);
+            window.location.replace("/member");
         }).catch((error) => {
-            console.error("寫入使用者資訊錯誤",error);
-        });
+            console.log(error);
+        })
     }
 }());
