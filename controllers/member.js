@@ -23,10 +23,12 @@
     }
 
     MemberController.prototype.postOne = function (req, res) {
-        let userId = req.pramas;
+        let userId = req.params.userid;
         let insertMember = {
             name: req.body.name,
-            birthday: req.body.birthday
+            birthday: req.body.birthday,
+            e_mail: req.body.e_mail,
+            user_id: req.body.user_id
         };
 
         return memberMdl.insert(userId, insertMember).then((resData) => {
@@ -46,7 +48,7 @@
     }
 
     MemberController.prototype.deleteOne = function (req, res) {
-        let userId = req.pramas;
+        let userId = req.params.userid;
 
         return memberMdl.delete(userId).then((resData) => {
             let resJson = {

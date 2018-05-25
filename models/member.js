@@ -14,8 +14,15 @@
     }
 
     MemberModel.prototype.insert = function (userId, insertMember) {
+        let insertedUser = {};
         return firebase.database().ref('/users/' + userId).set(insertMember).then(() => {
-            return insertMember;
+            insertedUser[userId] = {
+                user_id: insertMember.user_id,
+                e_mail: insertMember.e_mail,
+                name: insertMember.name,
+                birthday: insertMember.birthday
+            }
+            return insertedUser;
         }).catch(() => {
             return null;
         });
