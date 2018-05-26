@@ -55,9 +55,9 @@
         let email = req.body.email;
         let password = req.body.password;
 
-        firebase.auth().signInWithEmailAndPassword(email, password).then((resJson) => {
+        firebase.auth().getUserByEmail(email).then((resJson) => {
             let payload = {
-                uid: resJson.user.uid
+                uid: resJson.uid
             };
             let token = jwt.sign(payload, app.get('secret'));
             return token;

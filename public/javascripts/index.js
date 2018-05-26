@@ -12,7 +12,7 @@
 
     $(document).on('click', '#signup-submit', signUp);
     $(document).on('click', '#signin-submit', signIn);
-    $(document).on('blur', '#signin-confirm-password', checkPassword);
+    // $(document).on('blur', '#signup-confirm-password', checkPassword);
     $(document).on('click', '#btn-signin', showSignin);
     $(document).on('click', '#btn-signup', showSignup);
 
@@ -31,8 +31,8 @@
     }
 
     function checkPassword () {
-        let password = $('#signin-password').val();
-        let confirmPassword = $('#signin-confirm-password').val();
+        let password = $('#signup-password').val();
+        let confirmPassword = $('#signup-confirm-password').val();
 
         if (password && password !== confirmPassword) {
             alert('與密碼不相符');
@@ -50,13 +50,6 @@
             password: password
         };
 
-        let checked = checkPassword();
-
-        if(!checked) {
-            alert('與密碼不相符');
-            return;
-        }
-
         return api.auth.signIn(user).then((resJson) => {
             let jwt = resJson.jwt;
             window.localStorage.setItem('jwt', jwt);
@@ -73,6 +66,14 @@
             email: email,
             password: password
         };
+
+        let checked = checkPassword();
+
+        if(!checked) {
+            alert('與密碼不相符');
+            return;
+        }
+
         return api.auth.signUp(user).then((resJson) => {
             let jwt = resJson.jwt;
             window.localStorage.setItem('jwt', jwt);

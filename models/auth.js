@@ -5,11 +5,8 @@
 
     AuthModel.prototype.insert = function (userId, insertUserData) {
         let userData = {};
-        return firebase.database().ref('users/' + userId).set(insertUserData).then((ref) => {
-            console.log(ref);
-            for (let dataTitle in insertUserData) {
-                userData[userId].dataTitle = insertUserData.dataTitle;
-            }
+        return firebase.database().ref('users/' + userId).set(insertUserData).then(() => {
+            userData[userId] = Object.assign({}, insertUserData);
             // memberData[memberId] = {
             //     birthday: insertMemberData.birthday,
             //     email: insertMemberData.email,

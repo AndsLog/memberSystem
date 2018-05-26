@@ -27,8 +27,7 @@
         let insertUser = {
             name: req.body.name,
             birthday: req.body.birthday,
-            email: req.body.email,
-            user_id: req.body.user_id
+            email: req.body.email
         };
 
         return userMdl.insert(userId, insertUser).then((resData) => {

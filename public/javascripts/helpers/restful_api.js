@@ -106,7 +106,7 @@ window.restfulAPI = (function () {
             return sendRequest(destUrl, reqInit);
         }
 
-        UserAPI.prototype.remove = function(userId) {
+        UserAPI.prototype.remove = function (userId) {
             let destUrl = this.apiEndPoint + 'user/' + userId;
             let reqInit = {
                 method: 'DELETE',

@@ -14,15 +14,10 @@
     }
 
     UserModel.prototype.insert = function (userId, insertUser) {
-        let insertedUser = {};
+        let user = {};
         return firebase.database().ref('/users/' + userId).set(insertUser).then(() => {
-            insertedUser[userId] = {
-                user_id: insertUser.user_id,
-                email: insertUser.email,
-                name: insertUser.name,
-                birthday: insertUser.birthday
-            }
-            return insertedUser;
+            user[userId] = Object.assign({}, insertUser);
+            return user;
         }).catch(() => {
             return null;
         });
