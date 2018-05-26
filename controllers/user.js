@@ -1,16 +1,16 @@
 (function () {
-    const memberMdl = require('../models/member');
+    const userMdl = require('../models/user');
 
-    function MemberController () {};
+    function UserController () {};
 
-    MemberController.prototype.get = function (req, res) {
+    UserController.prototype.get = function (req, res) {
         let userId = req.params.userid || '';
 
-        return memberMdl.get(userId).then((resData) => {
+        return userMdl.get(userId).then((resData) => {
             let resJson = {
                 status: 1,
                 data: resData,
-                msg: 'member success to find'
+                msg: 'user success to find'
             };
             res.status(200).json(resJson);
         }).catch((error) => {
@@ -22,20 +22,20 @@
         });
     }
 
-    MemberController.prototype.postOne = function (req, res) {
+    UserController.prototype.postOne = function (req, res) {
         let userId = req.params.userid;
-        let insertMember = {
+        let insertUser = {
             name: req.body.name,
             birthday: req.body.birthday,
-            e_mail: req.body.e_mail,
+            email: req.body.email,
             user_id: req.body.user_id
         };
 
-        return memberMdl.insert(userId, insertMember).then((resData) => {
+        return userMdl.insert(userId, insertUser).then((resData) => {
             let resJson = {
                 status: 1,
                 data: resData,
-                msg: 'member success to insert'
+                msg: 'user success to insert'
             };
             res.status(200).json(resJson);
         }).catch((error) => {
@@ -47,14 +47,14 @@
         });
     }
 
-    MemberController.prototype.deleteOne = function (req, res) {
+    UserController.prototype.deleteOne = function (req, res) {
         let userId = req.params.userid;
 
-        return memberMdl.delete(userId).then((resData) => {
+        return userMdl.delete(userId).then((resData) => {
             let resJson = {
                 status: 1,
                 data: resData,
-                msg: 'member success to delete'
+                msg: 'user success to delete'
             };
             res.status(200).json(resJson);
         }).catch((error) => {
@@ -65,5 +65,5 @@
             res.status(500).json(resJson);
         });
     }
-    module.exports = new MemberController();
+    module.exports = new UserController();
 }());

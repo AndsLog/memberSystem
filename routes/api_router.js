@@ -2,16 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 const authCtl = require('../controllers/auth');
-const memberCtl = require('../controllers/member');
+const userCtl = require('../controllers/user');
 
 router.post('/auth/signin', authCtl.signIn);
 router.post('/auth/signup', authCtl.signUp);
 
 router.use(authCtl.verify);
 
-router.get('/auth/member/', memberCtl.get);
-router.get('/auth/member/:userid', memberCtl.get);
-router.post('/auth/member/:userid', memberCtl.postOne);
-router.delete('/auth/member/:userid', memberCtl.deleteOne);
+router.get('/auth/user/', userCtl.get);
+router.get('/auth/user/:userid', userCtl.get);
+router.post('/auth/user/:userid', userCtl.postOne);
+router.delete('/auth/user/:userid', userCtl.deleteOne);
 
 module.exports = router;

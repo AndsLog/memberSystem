@@ -59,9 +59,7 @@
             let payload = {
                 uid: resJson.user.uid
             };
-            let token = jwt.sign(payload, app.get('secret'), {
-                expiresIn: 120
-            });
+            let token = jwt.sign(payload, app.get('secret'));
             return token;
         }).then((token) => {
             let resJson = {
@@ -88,14 +86,13 @@
         };
 
         let insertUserData = {
-            e_mail: email,
+            email: email,
             name: '',
-            birthday: '',
-            user_id: ''
+            birthday: ''
         };
         firebase.auth().createUser(user).then((resJson) => {
-            insertUserData.user_id = resJson.uid;
-            return authMdl.insert(insertUserData);
+            let userId = resJson.uid;
+            return authMdl.insert(userId, insertUserData);
         }).then((resData) => {
             let userId = Object.keys(resData)[0];
             let payload = {

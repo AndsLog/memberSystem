@@ -3,22 +3,19 @@
 
     function AuthModel () {};
 
-    AuthModel.prototype.insert = function (insertUserData) {
+    AuthModel.prototype.insert = function (userId, insertUserData) {
         let userData = {};
-        return firebase.database().ref('users/').push().then((ref) => {
-            let userId = ref.key;
-            return Promise.all([
-                firebase.database().ref('users/' + userId).set(insertUserData),
-                userId
-            ]);
-        }).then((results) => {
-            let userId = results[1];
-            userData[userId] = {
-                birthday: insertUserData.birthday,
-                e_mail: insertUserData.e_mail,
-                name: insertUserData.name,
-                user_id: insertUserData.user_id
-            };
+        return firebase.database().ref('users/' + userId).set(insertUserData).then((ref) => {
+            console.log(ref);
+            for (let dataTitle in insertUserData) {
+                userData[userId].dataTitle = insertUserData.dataTitle;
+            }
+            // memberData[memberId] = {
+            //     birthday: insertMemberData.birthday,
+            //     email: insertMemberData.email,
+            //     name: insertMemberData.name,
+            //     user_id: insertMemberData.user_id
+            // };
             return userData;
         }).catch(() => {
             return null;

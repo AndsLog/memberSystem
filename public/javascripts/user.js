@@ -1,7 +1,7 @@
 (function () {
     var api = window.restfulAPI;
 
-    let memberData = {};
+    let userData = {};
 
     var userId;
     try {
@@ -11,11 +11,11 @@
         userId = '';
     }
 
-    $(document).on('click', '#submit', insertMember);
-    $(document).on('click', '#update', updateMember);
-    $(document).on('click', '#delete', deleteMember);
+    $(document).on('click', '#submit', insertUser);
+    $(document).on('click', '#update', updateUser);
+    $(document).on('click', '#delete', deleteUser);
 
-    return api.member.find(userId).then((resJson) => {
+    return api.user.find(userId).then((resJson) => {
         $('#insert-form').addClass('d-none');
         $('#userInfo').empty();
         let users = resJson.data;
@@ -24,8 +24,8 @@
             let name = user.name ? user.name : '未填寫';
             let birthday = user.birthday ? user.birthday : '未填寫';
             let elementStr =
-                '<tr id="tr-user_id" rel="' + user.user_id + '">' +
-                    '<td id="td-email" rel="' + user.e_mail + '">' + user.e_mail + '</td>' +
+                '<tr>' +
+                    '<td id="td-email" rel="' + user.email + '">' + user.email + '</td>' +
                     '<td id="td-name" rel="' + name + '">' + name + '</td>' +
                     '<td id="td-birthday" rel="' + birthday + '">' + birthday + '</td>' +
                     '<td>' +
@@ -39,14 +39,14 @@
         console.log(error);
     });
 
-    function insertMember () {
+    function insertUser () {
         let name = $('#name').val();
         let birthday = $('#birthday').val();
 
-        memberData.name = name;
-        memberData.birthday = birthday;
+        userData.name = name;
+        userData.birthday = birthday;
 
-        return api.member.insert(userId, memberData).then((resJson) => {
+        return api.user.insert(userId, userData).then((resJson) => {
             let user = resJson.data;
             $('#name').val(user[userId].name);
             $('#birthday').val(user[userId].birthday);
@@ -54,8 +54,8 @@
             let name = user[userId].name ? user[userId].name : '未填寫';
             let birthday = user[userId].birthday ? user[userId].birthday : '未填寫';
             let appendStr =
-                '<tr id="tr-user_id" rel="' + user[userId].user_id + '">' +
-                    '<td id="td-email">' + user[userId].e_mail + '</td>' +
+                '<tr>' +
+                    '<td id="td-email">' + user[userId].email + '</td>' +
                     '<td id="td-name" rel="' + name + '">' + name + '</td>' +
                     '<td id="td-birthday" rel="' + birthday + '">' + birthday + '</td>' +
                     '<td>' +
@@ -70,19 +70,17 @@
         })
     }
 
-    function updateMember () {
-        let user_id = $('#tr-user_id').attr('rel');
-        let e_mail = $('#td-email').attr('rel');
+    function updateUser () {
+        let email = $('#td-email').attr('rel');
 
-        memberData.user_id = user_id ;
-        memberData.e_mail = e_mail;
+        userData.email = email;
 
         $('#insert-form').removeClass('d-none');
         $('#user-table').addClass('d-none');
         $('#userInfo').empty();
     }
 
-    function deleteMember () {
+    function deleteUser () {
 
     }
 }());

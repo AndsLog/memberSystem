@@ -1,9 +1,9 @@
 (function () {
     const firebase = require('firebase-admin');
 
-    function MemberModel () {};
+    function UserModel () {};
 
-    MemberModel.prototype.get = function (userId) {
+    UserModel.prototype.get = function (userId) {
         let user = {};
         return firebase.database().ref('/users/' + userId).once('value').then((snap) => {
             user[snap.key] = snap.val();
@@ -13,14 +13,14 @@
         });
     }
 
-    MemberModel.prototype.insert = function (userId, insertMember) {
+    UserModel.prototype.insert = function (userId, insertUser) {
         let insertedUser = {};
-        return firebase.database().ref('/users/' + userId).set(insertMember).then(() => {
+        return firebase.database().ref('/users/' + userId).set(insertUser).then(() => {
             insertedUser[userId] = {
-                user_id: insertMember.user_id,
-                e_mail: insertMember.e_mail,
-                name: insertMember.name,
-                birthday: insertMember.birthday
+                user_id: insertUser.user_id,
+                email: insertUser.email,
+                name: insertUser.name,
+                birthday: insertUser.birthday
             }
             return insertedUser;
         }).catch(() => {
@@ -28,12 +28,12 @@
         });
     }
 
-    MemberModel.prototype.delete = function (userId) {
+    UserModel.prototype.delete = function (userId) {
         return firebase.database().ref('/users/' + userId).off().then(() => {
             return userId;
         }).catch(() => {
             return null;
         });
     }
-    module.exports = new MemberModel();
+    module.exports = new UserModel();
 }());

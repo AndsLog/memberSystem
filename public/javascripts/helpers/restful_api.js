@@ -1,5 +1,5 @@
 
-window.restfulAPI = (function() {
+window.restfulAPI = (function () {
     var jwt = window.localStorage.getItem('jwt');
     var reqHeaders = new Headers();
     reqHeaders.set('Content-Type', 'application/json');
@@ -17,7 +17,7 @@ window.restfulAPI = (function() {
      *
      * @param {string} value
      */
-    var setJWT = function(value) {
+    var setJWT = function (value) {
         jwt = value;
         reqHeaders.set('Authorization', jwt);
     };
@@ -27,18 +27,18 @@ window.restfulAPI = (function() {
     /**
      * @param {Response} res
      */
-    var responseChecking = function(res) {
+    var responseChecking = function (res) {
         if (!res.ok && res.status < 500) {
             return Promise.reject(new Error(res.status + ' ' + res.statusText));
         }
 
         if (!res.ok && res.status >= 500) {
-            return res.json().then(function(resJson) {
+            return res.json().then(function (resJson) {
                 return Promise.reject(resJson);
             });
         }
 
-        return res.json().then(function(resJson) {
+        return res.json().then(function (resJson) {
             if (1 !== resJson.status) {
                 return Promise.reject(resJson);
             }
@@ -50,17 +50,17 @@ window.restfulAPI = (function() {
      * @param {RequestInfo} reqInfo
      * @param {RequestInit|RequestInit[]} reqInit
      */
-    var sendRequest = function(reqInfo, reqInit) {
-        return window.fetch(reqInfo, reqInit).then(function(res) {
+    var sendRequest = function (reqInfo, reqInit) {
+        return window.fetch(reqInfo, reqInit).then(function (res) {
             return responseChecking(res);
         });
     };
-    var AuthAPI = (function() {
-        function AuthAPI() {
+    var AuthAPI = (function () {
+        function AuthAPI () {
             this.apiEndPoint = apiEndPoint;
         }
 
-        AuthAPI.prototype.signIn = function(user) {
+        AuthAPI.prototype.signIn = function (user) {
             let destUrl = this.apiEndPoint + 'signin/';
             let reqInit = {
                 method: 'POST',
@@ -70,7 +70,7 @@ window.restfulAPI = (function() {
             return sendRequest(destUrl, reqInit);
         }
 
-        AuthAPI.prototype.signUp = function(user) {
+        AuthAPI.prototype.signUp = function (user) {
             let destUrl = this.apiEndPoint + 'signup/';
             let reqInit = {
                 method: 'POST',
@@ -82,13 +82,13 @@ window.restfulAPI = (function() {
         return AuthAPI;
     }());
 
-    var MemberAPI = (function () {
-        function MemberAPI () {
+    var UserAPI = (function () {
+        function UserAPI () {
             this.apiEndPoint = apiEndPoint;
         }
 
-        MemberAPI.prototype.find = function (userId) {
-            let destUrl = this.apiEndPoint + 'member/' + userId;
+        UserAPI.prototype.find = function (userId) {
+            let destUrl = this.apiEndPoint + 'user/' + userId;
             let reqInit = {
                 method: 'GET',
                 headers: reqHeaders
@@ -96,18 +96,18 @@ window.restfulAPI = (function() {
             return sendRequest(destUrl, reqInit);
         }
 
-        MemberAPI.prototype.insert = function (userId, insertMember) {
-            let destUrl = this.apiEndPoint + 'member/' + userId;
+        UserAPI.prototype.insert = function (userId, insertUser) {
+            let destUrl = this.apiEndPoint + 'user/' + userId;
             let reqInit = {
                 method: 'POST',
                 headers: reqHeaders,
-                body: JSON.stringify(insertMember)
+                body: JSON.stringify(insertUser)
             };
             return sendRequest(destUrl, reqInit);
         }
 
-        MemberAPI.prototype.remove = function(userId) {
-            let destUrl = this.apiEndPoint + 'member/' + userId;
+        UserAPI.prototype.remove = function(userId) {
+            let destUrl = this.apiEndPoint + 'user/' + userId;
             let reqInit = {
                 method: 'DELETE',
                 headers: reqHeaders
@@ -115,13 +115,13 @@ window.restfulAPI = (function() {
             return sendRequest(destUrl, reqInit);
         }
 
-        return MemberAPI;
+        return UserAPI;
     }());
 
     return {
         setJWT: setJWT,
         auth: new AuthAPI(),
-        member: new MemberAPI()
+        user: new UserAPI()
     };
 
 })();
