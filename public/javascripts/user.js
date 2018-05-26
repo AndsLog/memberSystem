@@ -19,8 +19,14 @@
         $('#insert-form').addClass('d-none');
         $('#userInfo').empty();
         let users = resJson.data;
-        for(let userId in users) {
-            let user = users[userId];
+        if (userId && !users[userId].name && !users[userId].birthday) {
+            userData.email = users[userId].email;
+            $('#insert-form').removeClass('d-none');
+            $('#user-table').addClass('d-none');
+            return;
+        }
+        for(let resUserId in users) {
+            let user = users[resUserId];
             let name = user.name ? user.name : '未填寫';
             let birthday = user.birthday ? user.birthday : '未填寫';
             let elementStr =
@@ -47,6 +53,7 @@
         userData.birthday = birthday;
 
         return api.user.insert(userId, userData).then((resJson) => {
+            $('#userInfo').empty();
             let user = resJson.data;
             $('#name').val(user[userId].name);
             $('#birthday').val(user[userId].birthday);
@@ -55,7 +62,7 @@
             let birthday = user[userId].birthday ? user[userId].birthday : '未填寫';
             let appendStr =
                 '<tr>' +
-                    '<td id="td-email">' + user[userId].email + '</td>' +
+                    '<td id="td-email" rel="' + user[userId].email + '">' + user[userId].email + '</td>' +
                     '<td id="td-name" rel="' + name + '">' + name + '</td>' +
                     '<td id="td-birthday" rel="' + birthday + '">' + birthday + '</td>' +
                     '<td>' +
@@ -72,8 +79,18 @@
 
     function updateUser () {
         let email = $('#td-email').attr('rel');
+        let name = $('#td-name').attr('rel');
+        let birthday = $('#td-birthday').attr('rel');
 
         userData.email = email;
+
+        if (name) {
+            $('#name').val(name);
+        }
+
+        if(birthday) {
+            $('#birthday').val(birthday);
+        }
 
         $('#insert-form').removeClass('d-none');
         $('#user-table').addClass('d-none');
