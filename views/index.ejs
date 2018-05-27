@@ -9,39 +9,42 @@
       <div class="container">
         <button type="button" id="btn-signin">signIn</button>
         <button type="button" id="btn-signup">signUp</button>
-        <div id="signup" class="d-none">
-          <div class="form-group">
-            <label for="acc">e-mail:</label>
-            <input tpye="text" id="signup-e-mail" class="form-contorl">
-          </div>
-
-          <div class="form-group">
-            <label for="pass">password:</label>
-            <input tpye="password" id="signup-password" class="form-contorl">
-          </div>
-
-          <div class="form-group">
-            <label for="pass">confirm password:</label>
-            <input tpye="password" id="signup-confirm-password" class="form-contorl">
-          </div>
-
-          <button type="submit" id="signup-submit" class="btn btn-primary">Submit</button>
-        </div>
-
-        <div id="signin">
-          <div class="form-group">
-            <label for="acc">e-mail:</label>
-            <input tpye="text" id="signin-e-mail" class="form-contorl">
-          </div>
+        <form>
+          <div id="signup" class="d-none">
+            <div class="form-group">
+              <label for="acc" class="col-form-label">e-mail:</label>
+              <input tpye="text" id="signup-e-mail" class="form-contorl" placeholder="name@example.com">
+            </div>
   
-          <div class="form-group">
-            <label for="pass">password:</label>
-            <input tpye="password" id="signin-password" class="form-contorl">
+            <div class="form-group">
+              <label for="pass" class="col-form-label">password:</label>
+              <input tpye="password" id="signup-password" class="form-contorl" placeholder="password">
+            </div>
+  
+            <div class="form-group">
+              <label for="pass" class="col-form-label">confirm password:</label>
+              <input tpye="password" id="signup-confirm-password" class="form-contorl" placeholder="password again">
+            </div>
+  
+            <button type="submit" id="signup-submit" class="btn btn-primary">Submit</button>
           </div>
-
-          <button type="submit" id="signin-submit" class="btn btn-primary">Submit</button>
-        </div>
-          
+        </form>
+        
+        <form>
+          <div id="signin">
+            <div class="form-group">
+              <label for="acc" class="col-form-label">e-mail:</label>
+              <input tpye="text" id="signin-e-mail" class="form-contorl" placeholder="name@example.com">
+            </div>
+    
+            <div class="form-group">
+              <label for="pass" class="col-form-label">password:</label>
+              <input tpye="password" id="signin-password" class="form-contorl" placeholder="password">
+            </div>
+  
+            <button type="submit" id="signin-submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
       </div>
   </body>
   <%include outerinclude.ejs %>
