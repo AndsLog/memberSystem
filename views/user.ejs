@@ -10,22 +10,20 @@
       <div class="container">
         <button type="button" id="signout">signOut</button>
         <button type="submit" id="back" class="btn d-none">back</button>
-        <form>
-          <div id="insert-form" class="d-none form-inline">
-              <div id="email"></div>
-              <div class="form-group">
-                <label for="acc" class="col-form-label">name:</label>
+        <div id="insert-form" class="d-none">
+            <div id="email"></div>
+            <div class="form-group">
+                <label for="acc">name:</label>
                 <input tpye="text" id="name" class="form-contorl">
               </div>
     
               <div class="form-group form_datetime">
-                <label for="pass" class="col-form-label">birthday:</label>
+                <label for="pass">birthday:</label>
                 <input type="date" id="birthday" class="form-contorl">
               </div>
               
               <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
+        </div>
 
         <table id="user-table" class="d-none">
           <thead>
