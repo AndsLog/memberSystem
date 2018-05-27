@@ -94,7 +94,6 @@
             };
             $('#userInfo').append(appendStr);
             $('#user-table').removeClass('d-none');
-            $('#back').removeClass('d-none');
         }).catch((error) => {
             console.log(error);
         })
@@ -157,7 +156,6 @@
 
     function backPage () {
         $('#insert-form').addClass('d-none');
-        $('#back').addClass('d-none');
         findUser();
     }
 }());
