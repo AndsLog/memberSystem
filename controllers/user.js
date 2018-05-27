@@ -6,7 +6,10 @@
     UserController.prototype.get = function (req, res) {
         let userId = req.params.userid || '';
 
-        return userMdl.get(userId).then((resData) => {
+        return userMdl.find(userId).then((resData) => {
+            if (!resData) {
+                Promise.reject('user fail to find');
+            }
             let resJson = {
                 status: 1,
                 data: resData,
@@ -27,10 +30,14 @@
         let insertUser = {
             name: req.body.name,
             birthday: req.body.birthday,
-            email: req.body.email
+            email: req.body.email,
+            role: 0
         };
 
         return userMdl.insert(userId, insertUser).then((resData) => {
+            if (!resData) {
+                Promise.reject('user fail to insert');
+            }
             let resJson = {
                 status: 1,
                 data: resData,
@@ -50,6 +57,9 @@
         let userId = req.params.userid;
 
         return userMdl.delete(userId).then((resData) => {
+            if (!resData) {
+                Promise.reject('user fail to delete');
+            }
             let resJson = {
                 status: 1,
                 data: resData,

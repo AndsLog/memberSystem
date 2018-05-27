@@ -9,6 +9,8 @@
         userId = '';
     }
 
+    // Initialize Firebase
+    firebase.initializeApp(config);
 
     $(document).on('click', '#signup-submit', signUp);
     $(document).on('click', '#signin-submit', signIn);
@@ -45,17 +47,18 @@
         let email = $('#signin-e-mail').val();
         let password = $('#signin-password').val();
 
-        let user = {
-            email: email,
-            password: password
-        };
-
-        return api.auth.signIn(user).then((resJson) => {
+        return firebase.auth().signInWithEmailAndPassword(email, password).then((resJson) => {
+            let userId = resJson.user.uid;
+            let user = {
+                userId: userId
+            }
+            return api.auth.signIn(user);
+        }).then((resJson) => {
             let jwt = resJson.jwt;
             window.localStorage.setItem('jwt', jwt);
             window.location.replace('/user');
         }).catch((error) => {
-            console.log(error);
+            alert(error);
         });
     }
 
@@ -79,7 +82,7 @@
             window.localStorage.setItem('jwt', jwt);
             window.location.replace('/user');
         }).catch((error) => {
-            console.log(error);
+            alert(error);
         });
     }
 }());

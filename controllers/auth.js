@@ -9,9 +9,10 @@
     const jwt = require('jsonwebtoken');
 
     const authMdl = require('../models/auth');
+    const userMdl = require('../models/user');
 
     const firebase = require('firebase-admin');
-    const serviceAccount = require('../firebaseConfig.json');
+    const serviceAccount = require('../firebaseServerConfig.json');
 
     firebase.initializeApp({
         credential: firebase.credential.cert(serviceAccount),
@@ -52,12 +53,13 @@
     }
 
     AuthController.prototype.signIn = function (req, res) {
-        let email = req.body.email;
-        let password = req.body.password;
+        let userId = req.body.userId;
 
-        firebase.auth().getUserByEmail(email).then((resJson) => {
+        return userMdl.find(userId).then((user) => {
+            let userId = Object.keys(user)[0];
             let payload = {
-                uid: resJson.uid
+                uid: userId,
+                role: user[userId].role
             };
             let token = jwt.sign(payload, app.get('secret'));
             return token;
@@ -80,6 +82,7 @@
     AuthController.prototype.signUp = function (req, res) {
         let email = req.body.email;
         let password = req.body.password;
+        let role = 'admin@admin.com' === email && 'admin@admin.com' === password ? 1 : 0;
         let user = {
             email: email,
             password: password
@@ -88,15 +91,17 @@
         let insertUserData = {
             email: email,
             name: '',
-            birthday: ''
+            birthday: '',
+            role: role
         };
         firebase.auth().createUser(user).then((resJson) => {
             let userId = resJson.uid;
             return authMdl.insert(userId, insertUserData);
-        }).then((resData) => {
-            let userId = Object.keys(resData)[0];
+        }).then((user) => {
+            let userId = Object.keys(user)[0];
             let payload = {
-                uid: userId
+                uid: userId,
+                role: user[userId].role
             };
             let token = jwt.sign(payload, app.get('secret'));
             return token;

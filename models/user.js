@@ -3,28 +3,32 @@
 
     function UserModel () {};
 
-    UserModel.prototype.get = function (userId) {
-        let user = {};
+    UserModel.prototype.find = function (userId) {
+        let users = {};
         return firebase.database().ref('/users/' + userId).once('value').then((snap) => {
-            user[snap.key] = snap.val();
-            return user;
+            if (!userId) {
+                users = Object.assign({}, snap.val());
+                return users;
+            }
+            users[snap.key] = Object.assign({}, snap.val());
+            return users;
         }).catch(() => {
             return null;
         });
     }
 
     UserModel.prototype.insert = function (userId, insertUser) {
-        let user = {};
+        let users = {};
         return firebase.database().ref('/users/' + userId).set(insertUser).then(() => {
-            user[userId] = Object.assign({}, insertUser);
-            return user;
+            users[userId] = Object.assign({}, insertUser);
+            return users;
         }).catch(() => {
             return null;
         });
     }
 
     UserModel.prototype.delete = function (userId) {
-        return firebase.database().ref('/users/' + userId).off().then(() => {
+        return firebase.database().ref('/users/' + userId).remove().then(() => {
             return userId;
         }).catch(() => {
             return null;
