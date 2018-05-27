@@ -59,7 +59,8 @@
             let userId = Object.keys(user)[0];
             let payload = {
                 uid: userId,
-                role: user[userId].role
+                role: user[userId].role,
+                email: user[userId].email
             };
             let token = jwt.sign(payload, app.get('secret'));
             return token;
@@ -101,7 +102,8 @@
             let userId = Object.keys(user)[0];
             let payload = {
                 uid: userId,
-                role: user[userId].role
+                role: user[userId].role,
+                email: user[userId].email
             };
             let token = jwt.sign(payload, app.get('secret'));
             return token;

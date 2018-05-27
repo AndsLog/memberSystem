@@ -7,39 +7,77 @@
   </head>
   <body>
       <div class="container">
-        <button type="button" id="btn-signin">signIn</button>
-        <button type="button" id="btn-signup">signUp</button>
+
+        <div class="btn-group mb-1" role="group">
+          <button type="button" id="btn-signin" class="btn">signIn</button>
+          <button type="button" id="btn-signup" class="btn">signUp</button>
+        </div>
+
         <div id="signup" class="d-none">
-          <div class="form-group">
-            <label for="acc">e-mail:</label>
-            <input tpye="text" id="signup-e-mail" class="form-contorl">
-          </div>
-
-          <div class="form-group">
-            <label for="pass">password:</label>
-            <input tpye="password" id="signup-password" class="form-contorl">
-          </div>
-
-          <div class="form-group">
-            <label for="pass">confirm password:</label>
-            <input tpye="password" id="signup-confirm-password" class="form-contorl">
-          </div>
-
-          <button type="submit" id="signup-submit" class="btn btn-primary">Submit</button>
+          <fieldset>
+              <div class="form-group">
+                  <div class="input-group padding-left-right">
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text w-100 justify-content-center">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                      </div>
+                      <input tpye="text" id="signup-e-mail" class="form-contorl" placeholder="e-mail" aria-label=="e-mail">
+                  </div>
+                </div>
+      
+                <div class="form-group">
+                  <div class="input-group padding-left-right">
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text w-100 justify-content-center">
+                            <i class="fas fa-unlock-alt"></i>
+                        </span>
+                      </div>
+                      <input tpye="password" id="signup-password" class="form-contorl" placeholder="password" aria-label="password">
+                  </div>
+                </div>
+      
+                <div class="form-group">
+                    <div class="input-group padding-left-right">
+                        <div class=" input-group-prepend">
+                          <span class="input-group-text w-100 justify-content-center">
+                            <i class="fas fa-unlock-alt"></i>
+                          </span>
+                        </div>
+                        <input tpye="password" id="signup-confirm-password" class="form-contorl" placeholder="confirm password" aria-label="confirm password">
+                    </div>
+                </div>
+      
+                <button type="submit" id="signup-submit" class="btn btn-primary">Submit</button>
+          </fieldset>
         </div>
 
         <div id="signin">
-          <div class="form-group">
-            <label for="acc">e-mail:</label>
-            <input tpye="text" id="signin-e-mail" class="form-contorl">
-          </div>
-  
-          <div class="form-group">
-            <label for="pass">password:</label>
-            <input tpye="password" id="signin-password" class="form-contorl">
-          </div>
-
-          <button type="submit" id="signin-submit" class="btn btn-primary">Submit</button>
+          <fieldset>
+              <div class="form-group">
+                  <div class="input-group padding-left-right">
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text w-100 justify-content-center">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                      </div>
+                      <input tpye="text" id="signin-e-mail" class="form-contorl" placeholder="e-mail" aria-label="e-mail">
+                  </div>
+              </div>
+      
+              <div class="form-group">
+                <div class="input-group padding-left-right">
+                    <div class=" input-group-prepend">
+                      <span class="input-group-text w-100 justify-content-center">
+                          <i class="fas fa-unlock-alt"></i>
+                      </span>
+                    </div>
+                    <input tpye="password" id="signin-password" class="form-contorl" placeholder="password" aria-label="password">
+                </div>
+              </div>
+    
+              <button type="submit" id="signin-submit" class="btn btn-primary">Submit</button>
+          </fieldset>
         </div>
           
       </div>

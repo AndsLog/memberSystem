@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+.btn-group > button {
+  border-style: solid;
+  border-width: 2px;
+}
+

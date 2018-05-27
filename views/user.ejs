@@ -8,29 +8,50 @@
   </head>
   <body>
       <div class="container">
-        <button type="button" id="signout">signOut</button>
-        <button type="submit" id="back" class="btn d-none">back</button>
+        <button type="button" id="signout" class="btn btn-sm float-right">signOut</button>
+
+        <span id="greeting" class="float-right mr-1"></span>
+
         <div id="insert-form" class="d-none">
-            <div id="email"></div>
-            <div class="form-group">
-                <label for="acc">name:</label>
-                <input tpye="text" id="name" class="form-contorl">
+
+            <span id="email"></span>
+
+            <fieldset>
+              <div class="form-group">
+                <div class="input-group padding-left-right">
+                    <div class=" input-group-prepend">
+                      <span class="input-group-text w-100 justify-content-center">
+                          <i class="fas fa-user"></i>
+                      </span>
+                    </div>
+                    <input tpye="text" id="name" class="form-contorl" placeholder="name" aria-label="name">
+                </div>
               </div>
-    
-              <div class="form-group form_datetime">
-                <label for="pass">birthday:</label>
-                <input type="date" id="birthday" class="form-contorl">
+            
+              <div class="form-group">
+                  <div class="input-group padding-left-right">
+                      <div class=" input-group-prepend">
+                        <span class="input-group-text w-100 justify-content-center">
+                            <i class="fas fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type="date" id="birthday" class="form-contorl" aria-label="birthday">
+                  </div>
               </div>
-              
-              <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+
+          </fieldset>
         </div>
 
-        <table id="user-table" class="d-none">
+        <button type="submit" id="submit" class="btn btn-primary d-none">Submit</button>
+        <button type="submit" id="back" class="btn d-none">back</button>
+
+        <table id="user-table" class="table table-striped d-none">
           <thead>
             <tr>
                 <th scope="col">帳號</th>
                 <th scope="col">姓名</th>
                 <th scope="col">生日</th>
+                <th scope="col">操作</th>
             </tr>
             <tbody id="userInfo"></tbody>
           </thead>

@@ -12,6 +12,8 @@
     // Initialize Firebase
     firebase.initializeApp(config);
 
+    showSignin();
+
     $(document).on('click', '#signup-submit', signUp);
     $(document).on('click', '#signin-submit', signIn);
     // $(document).on('blur', '#signup-confirm-password', checkPassword);
@@ -21,13 +23,25 @@
         
 
     function showSignin () {
+        $('#btn-signin').removeAttr('style');
+        $('#btn-signup').removeAttr('style');
+
         $('#signin').removeClass('d-none');
         $('#signup').addClass('d-none');
+
+        $('#btn-signin').css('border-color', '#f8f9fa');
+        $('#btn-signup').css('border-color', '#111');
     }
 
     function showSignup () {
+        $('#btn-signup').removeAttr('style');
+        $('#btn-signin').removeAttr('style');
+
         $('#signup').removeClass('d-none');
         $('#signin').addClass('d-none');
+
+        $('#btn-signup').css('border-color', '#f8f9fa');
+        $('#btn-signin').css('border-color', '#111');
     }
 
     function checkPassword () {
