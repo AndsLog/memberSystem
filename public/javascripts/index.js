@@ -12,15 +12,15 @@
     // Initialize Firebase
     firebase.initializeApp(config);
 
+    $('#signup').addClass('d-none');
+
     $(document).on('click', '#signup-submit', signUp);
     $(document).on('click', '#signin-submit', signIn);
     // $(document).on('blur', '#signup-confirm-password', checkPassword);
     $(document).on('click', '#btn-signin', showSignin);
     $(document).on('click', '#btn-signup', showSignup);
 
-    $(document).ready(function () {
-        $('#signup').addClass('d-none');
-    });
+        
 
     function showSignin () {
         $('#signin').removeClass('d-none');
