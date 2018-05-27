@@ -12,8 +12,6 @@
     // Initialize Firebase
     firebase.initializeApp(config);
 
-    $('#signup').addClass('d-none');
-
     $(document).on('click', '#signup-submit', signUp);
     $(document).on('click', '#signin-submit', signIn);
     // $(document).on('blur', '#signup-confirm-password', checkPassword);

@@ -20,10 +20,9 @@
 
     // Initialize Firebase
     firebase.initializeApp(config);
+
     findUser();
-    $('#user-table').addClass('d-none');
-    $('#insert-form').addClass('d-none');
-    $('#back').addClass('d-none');
+
     $(document).on('click', '#submit', insertUser);
     $(document).on('click', '#update', updateUser);
     $(document).on('click', '#remove', removeUser);
