@@ -1,7 +1,7 @@
 (function () {
     var api = window.restfulAPI;
 
-    var userId;
+    // var userId; this is test
     try {
         var payload = window.jwt_decode(window.localStorage.getItem('jwt'));
         userId = payload.uid;
